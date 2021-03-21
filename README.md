@@ -1,24 +1,7 @@
-# tpts-piano
+# tpts-keyboard
 
-## Project setup
-```
-npm install
-```
+<img src="https://raw.githubusercontent.com/paolozanchi/tpts-keyboard/8de33d5edba5a28b9a7239af05ecddfa5b67fc58/src/assets/TPTS_Logo_Suare_v3b_noborder.png" width="75" height="75">
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[Live demo](https://tpts-keyboard.netlify.app/)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+A webapp to generate the melody syntax used by the [twitch plays the synth!](https://www.twitch.tv/twitchplaysthesynth) twitch channel.

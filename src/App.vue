@@ -1,7 +1,7 @@
 <template>
   <section>
     <a href="https://www.twitch.tv/twitchplaysthesynth" target="_blank" class="logoContainer">
-      <img src="./assets/TPTS_Logo_Suare_v3b_noborder.png" class="logo" />
+      <img src="./assets/logo.png" class="logo" />
       keyboard
     </a>
 
