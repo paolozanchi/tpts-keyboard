@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import PianoKey  from '@/components/PianoKey.vue'
+import PianoKey from '@/components/PianoKey.vue'
+import * as Tone from 'tone'
 
 export default {
   name: 'PianoOctave',
@@ -73,13 +74,22 @@ export default {
         {
           name: 'B',
         },
-      ]
+      ],
+      synth: null,
     }
+  },
+  created() {
+    // Create a synth and connect it to the main output
+    this.synth = new Tone.Synth().toDestination();
+    this.synth.volume.value = -6;
   },
   methods: {
     keyPressed(note) {
       // Bubble up adding the octave info
       this.$emit('keyPressed', note, this.octave);
+
+      // Play the note for the duration of an 8th note
+      this.synth.triggerAttackRelease(note + this.octave, "8n");
     }
   }
 }
