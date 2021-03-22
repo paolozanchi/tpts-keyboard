@@ -1,42 +1,46 @@
 <template>
   <section>
-    <a href="https://www.twitch.tv/twitchplaysthesynth" target="_blank" class="logoContainer">
-      <img src="./assets/logo.png" class="logo" />
-      keyboard
-    </a>
+    <header>
+      <a href="https://www.twitch.tv/twitchplaysthesynth" target="_blank" class="logoContainer">
+        <img src="./assets/logo.png" class="logo" />
+        keyboard
+      </a>
+    </header>
 
-    <h2>Select a note duration</h2>
+    <main>
+      <h2>Select a note duration</h2>
 
-    <NoteSelector
-      @durationSelected="durationSelected"
-    />
-
-    <h2>and play a note on the keyboard</h2>
-
-    <PianoKeyboard
-      :octaves="octaves"
-      :octaveShift="octaveShift"
-      :showHints="showHints"
-      @keyPressed="keyPressed"
-    />
-    <div class="hints">
-      <input type="checkbox" id="showHints" v-model="showHints" class="hints__checkbox">
-      <label for="showHints" class="hints__label">Show note hints</label>
-    </div>
-
-    <div class="buttons">
-      <RippleButton
-        title="Clear sequence"
-        @click="clearSequence"
+      <NoteSelector
+        @durationSelected="durationSelected"
       />
-    </div>
 
-    <h2>Last note: <strong>{{ selectedNote + selectedOctave }}</strong></h2>
-    <h1>
-      Result: <span class="result">{{ formattedSequence }}</span>
-    </h1>
+      <h2>and play a note on the keyboard</h2>
 
-    <p>
+      <PianoKeyboard
+        :octaves="octaves"
+        :octaveShift="octaveShift"
+        :showHints="showHints"
+        @keyPressed="keyPressed"
+      />
+      <div class="hints">
+        <input type="checkbox" id="showHints" v-model="showHints" class="hints__checkbox">
+        <label for="showHints" class="hints__label">Show note hints</label>
+      </div>
+
+      <div class="buttons">
+        <RippleButton
+          title="Clear sequence"
+          @click="clearSequence"
+        />
+      </div>
+
+      <h2>Last note: <strong>{{ selectedNote + selectedOctave }}</strong></h2>
+      <h1>
+        Result: <span class="result">{{ formattedSequence }}</span>
+      </h1>
+    </main>
+
+    <footer>
       <span v-if="appVersion">
         {{ appVersion }} - 
       </span>
@@ -49,7 +53,7 @@
       <a href="https://www.linkedin.com/in/paolo-zanchi/" target="_blank" class="link">
         Paolo Zanchi
       </a>
-    </p>
+    </footer>
   </section>
 </template>
 
