@@ -80,6 +80,16 @@ export default {
           value: '0.25',
           label: 'x'
         },
+        {
+          name: 'dottedThirtysecond',
+          value: '0.1875',
+          label: 'r .'
+        }, 
+        {
+          name: 'thirtysecond',
+          value: '0.125',
+          label: 'r'
+        }
       ],
       selectedDuration: '1'
     }
