@@ -4,4 +4,4 @@
 
 [Live demo](https://tpts-keyboard.netlify.app/)
 
-A webapp to generate the melody syntax used by the [twitch plays the synth!](https://www.twitch.tv/twitchplaysthesynth) twitch channel.
+A webapp to generate the melody syntax used by the twitch channel [!tpts (twitch plays the synth)](https://www.twitch.tv/twitchplaysthesynth).
