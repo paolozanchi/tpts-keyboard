@@ -50,7 +50,7 @@
       <a href="https://github.com/paolozanchi" target="_blank" class="link">
         mmmmmeh1
       </a>
-      /
+      |
       <a href="https://www.linkedin.com/in/paolo-zanchi/" target="_blank" class="link">
         Paolo Zanchi
       </a>
@@ -200,6 +200,11 @@ export default {
     text-align: center;
   }
 
+  h2 {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+  }
+
   .logoContainer {
     color: var(--light);
     font-size: 24pt;
@@ -228,5 +233,11 @@ export default {
   .heart {
     color: transparent;
     text-shadow: 0 0 0 var(--accent);
+  }
+
+  footer {
+    position: fixed;
+    bottom: 1rem;
+    width: 100%;
   }
 </style>

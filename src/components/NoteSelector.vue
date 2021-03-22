@@ -110,7 +110,7 @@ export default {
 
   .noteSelector {
     font-family: 'MusicalNotes', sans-serif;
-    font-size: 4em;
+    font-size: 3em;
     color: var(--light);
     height: 2em;
   }

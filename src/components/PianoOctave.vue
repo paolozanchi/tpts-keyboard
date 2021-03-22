@@ -98,7 +98,7 @@ export default {
 <style scoped>
   .keys {
     display: inline-block;
-    height: 300px;
+    height: 250px;
     position: relative;
   }
 </style>
