@@ -36,6 +36,10 @@
     </h1>
 
     <p>
+      <span v-if="appVersion">
+        {{ appVersion }} - 
+      </span>
+
       Made with ❤️ by 
       <a href="https://github.com/paolozanchi" target="_blank" class="link">
         mmmmmeh1
@@ -52,6 +56,7 @@
 import NoteSelector from '@/components/NoteSelector.vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import RippleButton from '@/components/RippleButton.vue'
+import { version } from '../package.json'
 
 export default {
   name: 'TptsKeyboard',
@@ -66,15 +71,15 @@ export default {
   },
   data() {
     return {
+      appVersion: version,
+      octaves: 5,
+      octaveShift: 1,
+      previousNoteDistance: null,
       selectedDuration: '1',
       selectedNote: null,
       selectedOctave: null,
-      previousNoteDistance: null,
-
-      octaves: 5,
-      octaveShift: 1,
       sequence: [],
-      showHints: true
+      showHints: true,
     }
   },
   computed: {
