@@ -42,7 +42,7 @@
 
     <footer>
       <span v-if="appVersion">
-        {{ appVersion }} - 
+        v{{ appVersion }} - 
       </span>
 
       Made with <span class="heart">❤️</span> by 
