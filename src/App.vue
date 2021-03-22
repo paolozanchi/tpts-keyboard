@@ -36,7 +36,6 @@
         />
       </div>
 
-       <h2>Last note: <strong>{{ selectedNote + selectedOctave }}</strong></h2> 
       <h1>
         Result: <span class="result">{{ formattedSequence }}</span>
       </h1>

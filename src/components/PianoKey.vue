@@ -1,5 +1,6 @@
 <template>
-  <div 
+  <div
+    tabindex="-1"
     :data-note="dataNote"
     class="key"
     :class="{ 'sharp' : sharp }"
@@ -24,7 +25,9 @@ export default {
     showHints: Boolean
   },
   methods: {
-    keyPressed() {
+    keyPressed(evt) {
+      let element = evt.target;
+      element.focus();
       this.$emit('keyPressed', this.dataNote);
     }
   }
@@ -64,6 +67,12 @@ export default {
   .key:hover {
     border: 1px solid var(--secondary);
     color: var(--secondary);
+  }
+
+  .key:focus {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--dark);
   }
 
   .key[data-note="C#"] {
