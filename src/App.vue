@@ -19,9 +19,10 @@
       :showHints="showHints"
       @keyPressed="keyPressed"
     />
-
-    <input type="checkbox" id="showHints" v-model="showHints">
-    <label for="showHints">Show note hints</label>
+    <div class="hints">
+      <input type="checkbox" id="showHints" v-model="showHints" class="hints__checkbox">
+      <label for="showHints" class="hints__label">Show note hints</label>
+    </div>
 
     <div class="buttons">
       <RippleButton
@@ -36,7 +37,7 @@
     </h1>
 
     <p>
-      Made with ❤️ by 
+      Made with <span class="heart">❤️</span> by 
       <a href="https://github.com/paolozanchi" target="_blank" class="link">
         mmmmmeh1
       </a>
@@ -211,4 +212,42 @@ export default {
     color: var(--light);
     outline: none;
   }
+
+  .hints__checkbox {
+    appearance: none;
+  }
+  .hints {
+    position: relative;
+    display: inline-block;
+  }
+  .hints__label {
+    cursor: pointer;
+  }
+  .hints__label::before {
+    position: relative;
+    content: '';
+    width: 14px;
+    height: 14px;
+    top: 1px;
+    left: -3px;
+    background: var(--accent);
+    display: inline-block;
+    border-radius: 2px;
+  }
+  .hints__checkbox:checked ~ .hints__label::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 8px;
+  width: 3px;
+  height: 9px;
+  border: solid #EEEEEE;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+} 
+.heart {
+  color: transparent;
+  text-shadow: 0 0 0 var(--accent);
+}
 </style>
