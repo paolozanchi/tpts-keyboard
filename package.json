@@ -11,6 +11,7 @@
     "core-js": "^3.9.1",
     "tone": "^14.7.77",
     "vue": "^2.6.12",
+    "vue-gtag": "^1.11.0",
     "vue-meta": "^2.4.0"
   },
   "devDependencies": {
