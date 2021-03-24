@@ -1,15 +1,12 @@
 <template>
   <button @click="createRipple">
-    {{ title }}
+    <slot />
   </button>
 </template>
 
 <script>
 export default {
   name: 'RippleButton',
-  props: {
-    title: String
-  },
   methods: {
     createRipple(event) {
       const button = event.currentTarget;
