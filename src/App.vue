@@ -31,9 +31,16 @@
 
       <div class="buttons">
         <RippleButton
-          title="Clear sequence"
+          @click="undoLastNote"
+        >
+          <v-icon name="io-arrow-undo-sharp" /> Undo last note
+        </RippleButton>
+
+        <RippleButton
           @click="clearSequence"
-        />
+        >
+          <v-icon name="ri-delete-bin-6-line" /> Clear sequence
+        </RippleButton>
       </div>
 
       <h1>
@@ -82,12 +89,10 @@ export default {
       appVersion: version,
       octaves: 5,
       octaveShift: 1,
-      previousNoteDistance: null,
+      lastNoteDistanceFromC4: null,
       selectedDuration: '1',
-      selectedNote: null,
-      selectedOctave: null,
       sequence: [],
-      showHints: true,
+      showHints: true
     }
   },
   computed: {
@@ -100,20 +105,16 @@ export default {
       this.selectedDuration = duration;
     },
     keyPressed(note, octave) {
-      // Convert the note
-      this.selectedNote = note;
-      this.selectedOctave = octave;
-      
       if(this.sequence.length == 0) {
         // FIRST NOTE
         // We need to find the first note's distance from C4 to start the sequence
-        this.previousNoteDistance = this.getDistanceFromC4(note, octave);
-        this.sequence.push(this.previousNoteDistance + "[" + this.selectedDuration + "]");
+        this.lastNoteDistanceFromC4 = this.getDistanceFromC4(note, octave);
+        this.sequence.push(this.lastNoteDistanceFromC4 + "[" + this.selectedDuration + "]");
       } else {
         const currentNoteDistance = this.getDistanceFromC4(note, octave);
-        const difference = currentNoteDistance - this.previousNoteDistance;
+        const difference = currentNoteDistance - this.lastNoteDistanceFromC4;
 
-        this.previousNoteDistance += difference;
+        this.lastNoteDistanceFromC4 += difference;
 
         this.sequence.push(difference + "[" + this.selectedDuration + "]");
       }
@@ -169,11 +170,20 @@ export default {
 
       return distance;
     },
+    undoLastNote() {
+      this.sequence.pop();
+
+      let newDistance = 0;
+      this.sequence.forEach(tuple => {
+        // Each tuple is formed like this: 2[4] => we take the 2
+        newDistance += parseInt(tuple.split('[')[0]);
+      });
+      
+      this.lastNoteDistanceFromC4 = newDistance;
+    },
     clearSequence() {
       this.sequence = [];
-      this.previousNoteDistance = null;
-      this.selectedNote = null;
-      this.selectedOctave = null;
+      this.lastNoteDistanceFromC4 = null;
     }
   }
 }
