@@ -98,6 +98,27 @@ export default {
     selectedDuration() {
       this.$emit('durationSelected', this.selectedDuration);
     }
+  },
+  created() {
+    // register the handler 
+    document.addEventListener('keyup', this.handleHotkeys, false);
+  },
+  methods: {
+    handleHotkeys(e) {
+      if (e.key === 'ArrowLeft') {
+        this.changeSelectedDuration(-1);
+      } else if (e.key === 'ArrowRight') {
+        this.changeSelectedDuration(+1);
+      }
+    },
+    changeSelectedDuration(value) {
+      const currentIndex = this.durations.map(e => e.value).indexOf(this.selectedDuration);
+      let newIndex = currentIndex + value;
+
+      // Clamp newIndex between 0 and this.durations.length - 1
+      newIndex = Math.min(Math.max(newIndex, 0), this.durations.length - 1);
+      this.selectedDuration = this.durations[newIndex].value;
+    }
   }
 }
 </script>
