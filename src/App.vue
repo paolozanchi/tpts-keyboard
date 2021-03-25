@@ -8,13 +8,10 @@
     </header>
 
     <main>
-      <h2>Select a note duration</h2>
-
       <NoteSelector
         @durationSelected="durationSelected"
+        style="margin-bottom: 2rem"
       />
-
-      <h2>and play a note on the keyboard</h2>
 
       <PianoKeyboard
         :octaves="octaves"

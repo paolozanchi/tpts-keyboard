@@ -1,8 +1,9 @@
 <template>
-  <div class="noteSelector">
-    <span
+  <div class="noteSelectorContainer">
+    <div
       v-for="duration in durations"
       :key="duration.name"
+      class="noteSelector"
     >
       <input
         type="radio"
@@ -14,7 +15,17 @@
       <label :for="duration.name">
         {{ duration.label }}
       </label>
-    </span>
+    </div>
+
+    <p class="hint">
+      Hint: Use
+      <kbd>
+        <v-icon name="bi-arrow-left-square-fill" /> 
+      </kbd> and
+      <kbd>
+        <v-icon name="bi-arrow-right-square-fill" /> 
+      </kbd> to quickly change the note duration
+    </p>
   </div>
 </template>
 
@@ -100,8 +111,10 @@ export default {
     }
   },
   created() {
-    // register the handler 
-    document.addEventListener('keyup', this.handleHotkeys, false);
+    document.addEventListener('keydown', this.handleHotkeys);
+  },
+  destroyed() {
+    document.removeEventListener('keydown', this.handleHotkeys);
   },
   methods: {
     handleHotkeys(e) {
@@ -129,11 +142,20 @@ export default {
     src: url('../assets/Musical Notes.ttf');
   }
 
-  .noteSelector {
-    font-family: 'MusicalNotes', sans-serif;
-    font-size: 3em;
+  .noteSelectorContainer {
     color: var(--light);
-    height: 2em;
+  }
+
+  .noteSelector {
+    display: inline-block;
+    font-family: 'MusicalNotes', sans-serif;
+    font-size: 3rem;
+    margin: 0 1rem;
+    max-height: 1.5em;
+  }
+
+  .hint {
+    opacity: 0.8;
   }
 
   label {
@@ -145,7 +167,7 @@ export default {
   }
 
   input {
-    visibility: hidden; 
+    display: none; 
   }
 
   input:checked + label {
