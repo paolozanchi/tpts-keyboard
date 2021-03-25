@@ -75,7 +75,7 @@ import { version } from '../package.json'
 export default {
   name: 'TptsKeyboard',
   metaInfo: {
-    title: 'tpts! keyboard',
+    title: '!tpts keyboard',
     charset: 'utf-8',
   },
   components: {
