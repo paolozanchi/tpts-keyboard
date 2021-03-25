@@ -1,7 +1,7 @@
 <template>
   <section>
     <header>
-      <a href="https://www.twitch.tv/twitchplaysthesynth" target="_blank" class="logoContainer">
+      <a href="#" @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')" class="logoContainer">
         <img src="./assets/logo.png" class="logo" />
         keyboard
       </a>
@@ -54,11 +54,11 @@
       </span>
 
       Made with <span class="heart">❤️</span> by 
-      <a href="https://github.com/paolozanchi" target="_blank" class="link">
+      <a href="#" @click.prevent="trackLinkClick('https://github.com/paolozanchi')" class="link">
         mmmmmeh1
       </a>
       |
-      <a href="https://www.linkedin.com/in/paolo-zanchi/" target="_blank" class="link">
+      <a href="#" @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')" class="link">
         Paolo Zanchi
       </a>
     </footer>
@@ -184,6 +184,15 @@ export default {
     clearSequence() {
       this.sequence = [];
       this.lastNoteDistanceFromC4 = null;
+    },
+    trackLinkClick(url) {
+      this.$gtag.event('link_click', {
+        event_category: 'link_click',
+        event_label: 'link_click',
+        value: url
+      })
+
+      window.open(url, '_blank').focus();
     }
   }
 }
