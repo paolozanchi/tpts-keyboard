@@ -8,4 +8,4 @@ A webapp to generate the melody syntax used by the twitch channel [!tpts (twitch
 
 ## License
 
-[Apache License 2.0](https://raw.githubusercontent.com/paolozanchi/tpts-keyboard/blob/production/LICENSE)
+[Apache License 2.0](https://raw.githubusercontent.com/paolozanchi/tpts-keyboard/production/LICENSE)
