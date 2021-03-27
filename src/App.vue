@@ -1,28 +1,35 @@
 <template>
   <section>
     <header>
-      <a href="#" @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')" class="logoContainer">
-        <img src="./assets/logo.png" class="logo" />
+      <a
+        href="#"
+        class="logoContainer"
+        @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
+      >
+        <img
+          src="./assets/logo.png"
+          class="logo"
+        >
         keyboard
       </a>
     </header>
 
     <main>
       <NoteSelector
-        @durationSelected="durationSelected"
         style="margin-bottom: 2rem"
+        @durationSelected="durationSelected"
       />
 
       <PianoKeyboard
         :octaves="octaves"
-        :octaveShift="octaveShift"
-        :showHints="showHints"
+        :octave-shift="octaveShift"
+        :show-hints="showHints"
         @keyPressed="keyPressed"
       />
 
       <CheckBox
-        v-model="showHints"
         id="hintsToggle"
+        v-model="showHints"
         label="Show note hints"
       />
 
@@ -51,11 +58,19 @@
       </span>
 
       Made with <span class="heart">❤️</span> by 
-      <a href="#" @click.prevent="trackLinkClick('https://github.com/paolozanchi')" class="link">
+      <a 
+        href="#"
+        class="link"
+        @click.prevent="trackLinkClick('https://github.com/paolozanchi')"
+      >
         mmmmmeh1
       </a>
       |
-      <a href="#" @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')" class="link">
+      <a
+        href="#"
+        class="link"
+        @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')"
+      >
         Paolo Zanchi
       </a>
     </footer>
@@ -84,9 +99,9 @@ export default {
   data() {
     return {
       appVersion: version,
+      lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
-      lastNoteDistanceFromC4: null,
       selectedDuration: '1',
       sequence: [],
       showHints: true
@@ -102,6 +117,8 @@ export default {
       this.selectedDuration = duration;
     },
     keyPressed(note, octave) {
+      // Create the note-duration tuple and push it to the sequence
+
       if(this.sequence.length == 0) {
         // FIRST NOTE
         // We need to find the first note's distance from C4 to start the sequence
@@ -183,12 +200,14 @@ export default {
       this.lastNoteDistanceFromC4 = null;
     },
     trackLinkClick(url) {
+      // Track link click in the analytics
       this.$gtag.event('link_click', {
         event_category: 'link_click',
         event_label: 'link_click',
         value: url
       })
 
+      // Open a new tab
       window.open(url, '_blank').focus();
     }
   }

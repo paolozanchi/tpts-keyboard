@@ -35,12 +35,12 @@ export default {
       default: ''
     },
     value:  {
-      type: String,
-      required: true
+      type: Boolean,
+      default: false
     },
     modelValue: {
-      type: String,
-      default: ''
+      type: Boolean,
+      default: false
     },
     trueValue: { 
       type: Boolean,

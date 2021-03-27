@@ -32,18 +32,6 @@
 <script>
 export default {
   name: 'NoteSelector',
-  props: {
-    dataNote: {
-      type: String,
-      required: true
-    },
-    hint: {
-      type: String,
-      required: true
-    },
-    sharp: Boolean,
-    showHints: Boolean
-  },
   data() {
     return {
       durations: [
