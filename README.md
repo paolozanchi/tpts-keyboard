@@ -5,3 +5,7 @@
 [Live demo](https://tpts-keyboard.netlify.app/)
 
 A webapp to generate the melody syntax used by the twitch channel [!tpts (twitch plays the synth)](https://www.twitch.tv/twitchplaysthesynth).
+
+## License
+
+[Apache License 2.0](https://raw.githubusercontent.com/paolozanchi/tpts-keyboard/production/LICENSE)

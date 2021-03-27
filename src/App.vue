@@ -1,31 +1,35 @@
 <template>
   <section>
     <header>
-      <a href="https://www.twitch.tv/twitchplaysthesynth" target="_blank" class="logoContainer">
-        <img src="./assets/logo.png" class="logo" />
+      <a
+        href="#"
+        class="logoContainer"
+        @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
+      >
+        <img
+          src="./assets/logo.png"
+          class="logo"
+        >
         keyboard
       </a>
     </header>
 
     <main>
-      <h2>Select a note duration</h2>
-
       <NoteSelector
+        style="margin-bottom: 2rem"
         @durationSelected="durationSelected"
       />
 
-      <h2>and play a note on the keyboard</h2>
-
       <PianoKeyboard
         :octaves="octaves"
-        :octaveShift="octaveShift"
-        :showHints="showHints"
-        @keyPressed="keyPressed"
+        :octave-shift="octaveShift"
+        :show-hints="showHints"
+        @keyPressed="onKeyPressed"
       />
 
       <CheckBox
-        v-model="showHints"
         id="hintsToggle"
+        v-model="showHints"
         label="Show note hints"
       />
 
@@ -43,9 +47,11 @@
         </RippleButton>
       </div>
 
-      <h1>
-        Result: <span class="result">{{ formattedSequence }}</span>
-      </h1>
+      <h3>
+        Result:
+        <br><br>
+        <span class="result">{{ formattedSequence }}</span>
+      </h3>
     </main>
 
     <footer>
@@ -54,11 +60,19 @@
       </span>
 
       Made with <span class="heart">❤️</span> by 
-      <a href="https://github.com/paolozanchi" target="_blank" class="link">
+      <a 
+        href="#"
+        class="link"
+        @click.prevent="trackLinkClick('https://github.com/paolozanchi')"
+      >
         mmmmmeh1
       </a>
       |
-      <a href="https://www.linkedin.com/in/paolo-zanchi/" target="_blank" class="link">
+      <a
+        href="#"
+        class="link"
+        @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')"
+      >
         Paolo Zanchi
       </a>
     </footer>
@@ -75,7 +89,7 @@ import { version } from '../package.json'
 export default {
   name: 'TptsKeyboard',
   metaInfo: {
-    title: 'tpts! keyboard',
+    title: '!tpts keyboard',
     charset: 'utf-8',
   },
   components: {
@@ -87,9 +101,9 @@ export default {
   data() {
     return {
       appVersion: version,
+      lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
-      lastNoteDistanceFromC4: null,
       selectedDuration: '1',
       sequence: [],
       showHints: true
@@ -104,7 +118,9 @@ export default {
     durationSelected(duration) {
       this.selectedDuration = duration;
     },
-    keyPressed(note, octave) {
+    onKeyPressed(note, octave) {
+      // Create the note-duration tuple and push it to the sequence
+
       if(this.sequence.length == 0) {
         // FIRST NOTE
         // We need to find the first note's distance from C4 to start the sequence
@@ -184,6 +200,17 @@ export default {
     clearSequence() {
       this.sequence = [];
       this.lastNoteDistanceFromC4 = null;
+    },
+    trackLinkClick(url) {
+      // Track link click in the analytics
+      this.$gtag.event('link_click', {
+        event_category: 'link_click',
+        event_label: 'link_click',
+        value: url
+      })
+
+      // Open a new tab
+      window.open(url, '_blank').focus();
     }
   }
 }
@@ -199,7 +226,10 @@ export default {
     --dark: #111;
     --light: #eee;
     --accent: #f57f17;
+    --accentRgb: 245, 127, 23;
     --secondary: #f9a825;
+
+    --border-radius: .25rem;
   }
 
   html {

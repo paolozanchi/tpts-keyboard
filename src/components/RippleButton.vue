@@ -35,16 +35,36 @@ export default {
 
 <style scoped>
   button {
-    background: var(--light);
+    position: relative;
+    overflow: hidden;
+    transition: background 400ms;
     color: var(--dark);
-    font-family: 'Metropolis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 1em;
-    margin: 0.5em;
+    background-color:  var(--light);
+    margin: 0.5rem;
     padding: 0.75rem 1rem;
-    border-radius: .25em;
+    font-family: 'Metropolis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
     outline: 0;
     border: 0;
+    border-radius: var(--border-radius);
     box-shadow: 0 0 0.5rem rgba(238, 238, 238, 0.3);
     cursor: pointer;
+  }
+</style>
+
+<style>
+  span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: rgba(var(--accentRgb), 0.6);
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
   }
 </style>

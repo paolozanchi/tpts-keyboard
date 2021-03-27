@@ -2,9 +2,10 @@
   <div
     tabindex="-1"
     :data-note="dataNote"
+    :data-octave="dataOctave"
     class="key"
-    :class="{ 'sharp' : sharp }"
-    @click="keyPressed"
+    :class="{ 'sharp' : sharp, 'pressed' : pressed }"
+    @click="onKeyPressed"
   >
     <span
       v-if="showHints"
@@ -19,15 +20,32 @@
 export default {
   name: 'PianoKey',
   props: {
-    dataNote: String,
-    hint: String,
+    dataOctave: {
+      type: Number,
+      required: true
+    },
+    dataNote: {
+      type: String,
+      required: true
+    },
+    hint: {
+      type: String,
+      required: true
+    },
+    keyPressed: {
+      type: String,
+      default: ''
+    },
     sharp: Boolean,
     showHints: Boolean
   },
+  computed: {
+    pressed() {
+      return this.keyPressed == this.dataNote + this.dataOctave;
+    }
+  },
   methods: {
-    keyPressed(evt) {
-      let element = evt.target;
-      element.focus();
+    onKeyPressed() {
       this.$emit('keyPressed', this.dataNote);
     }
   }
@@ -69,7 +87,7 @@ export default {
     color: var(--secondary);
   }
 
-  .key:focus {
+  .key.pressed {
     border: 1px solid var(--accent);
     background: var(--accent);
     color: var(--dark);
@@ -84,7 +102,7 @@ export default {
   }
 
   .key[data-note="F#"]  {
-    left: 51%;
+    left: 52%;
   }
 
   .key[data-note="G#"] {
@@ -92,7 +110,7 @@ export default {
   }
 
   .key[data-note="A#"] {
-    left: 80%;    
+    left: 81%;    
   }
 
   .hint {

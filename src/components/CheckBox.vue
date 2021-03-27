@@ -1,13 +1,13 @@
 <template>
   <div class="checkbox-container">
     <input 
-      type="checkbox"
       :id="id"
+      type="checkbox"
       :checked="isChecked"
       :value="value"
-      @change="updateInput"
       class="checkbox"
-    />
+      @change="updateInput"
+    >
 
     <label
       :for="id"
@@ -26,12 +26,30 @@ export default {
     event: 'change'
   },
   props: {
-    id: String,
-    label: String,
-    value: { type: String },
-    modelValue: { default: "" },
-    trueValue: { default: true },
-    falseValue: { default: false }
+    id: {
+      type: String,
+      required: true
+    },
+    label:{
+      type: String,
+      default: ''
+    },
+    value:  {
+      type: Boolean,
+      default: false
+    },
+    modelValue: {
+      type: Boolean,
+      default: false
+    },
+    trueValue: { 
+      type: Boolean,
+      default: true
+    },
+    falseValue: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     isChecked() {
