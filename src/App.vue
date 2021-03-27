@@ -12,16 +12,6 @@
         >
         keyboard
       </a>
-
-      <div
-        class="midi-alert"
-      >
-        <v-icon 
-          name="bi-music-note-beamed"
-          animation="wrench"
-        />
-        Listening to MIDI device
-      </div>
     </header>
 
     <main>
@@ -265,15 +255,6 @@ export default {
   .logo {
     width: 100px;
     vertical-align: middle;
-  }
-
-  .midi-alert {
-    position: absolute;
-    top: 25px;
-    right: 50px;
-    display: inline;
-    border: 1px solid var(--light);
-    padding: 1rem;
   }
 
   .buttons {

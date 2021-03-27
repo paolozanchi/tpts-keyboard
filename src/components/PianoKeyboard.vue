@@ -1,7 +1,23 @@
 <template>
   <section>
-    <h1>MIDI debug: {{ mididebug }}</h1>
-    <br>
+    <div
+      class="midi-alert"
+    >
+      <v-icon 
+        name="bi-music-note-beamed"
+        animation="wrench"
+      />
+      Listening to MIDI device
+
+      <br>
+
+      <span
+        v-if="!firstNotePressed"
+      >
+        Play the first note on the screen-keyboard
+      </span>
+    </div>
+    
     <div
       v-for="octave in octaves"
       :key="octave + octaveShift"
@@ -49,6 +65,7 @@ export default {
   },
   data() {
     return {
+      firstNotePressed: false,
       isMIDIactive: false,
       mididebug: null,
       notes: [
@@ -91,7 +108,14 @@ export default {
     }
   },
   methods: {
-    onKeyPressed(note, octave) {
+    onKeyPressed(note, octave, fromMIDI) {
+      // The first note must be pressed using the GUI due to some Web MIDI limitations.
+      // Break if we received a MIDI command but the first note hasn't been played using the GUI
+      if(fromMIDI && !this.firstNotePressed) 
+        return;
+
+      this.firstNotePressed = true;
+
       // Play the note for the duration of an 8th note
       this.synth.triggerAttackRelease(note + octave, "8n", Tone.now());
 
@@ -112,7 +136,7 @@ export default {
               page.mididebug = e.note.name + e.note.octave;
 
               // Trigger the press of the key
-              page.onKeyPressed(e.note.name, e.note.octave)
+              page.onKeyPressed(e.note.name, e.note.octave, true)
             });
           });
         }
@@ -123,6 +147,15 @@ export default {
 </script>
 
 <style scoped>
+  .midi-alert {
+    position: absolute;
+    top: 25px;
+    right: 50px;
+    display: inline;
+    border: 1px solid var(--light);
+    padding: 1rem;
+  }
+
   .octave {
     display: inline-block;
     position: relative;
