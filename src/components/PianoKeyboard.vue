@@ -4,9 +4,7 @@
       v-if="showAlert"
       class="midi-alert"
     >
-      <span
-        v-if="isMIDIavailable"
-      >
+      <span v-if="isMIDIavailable">
         <v-icon
           name="bi-music-note-beamed"
           animation="wrench"
@@ -20,9 +18,7 @@
         </span>
       </span>
 
-      <span
-        v-else
-      >
+      <span v-else>
         <v-icon
           name="bi-music-note-beamed"
           animation="pulse"

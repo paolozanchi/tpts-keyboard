@@ -47,9 +47,11 @@
         </RippleButton>
       </div>
 
-      <h1>
-        Result: <span class="result">{{ formattedSequence }}</span>
-      </h1>
+      <h3>
+        Result:
+        <br><br>
+        <span class="result">{{ formattedSequence }}</span>
+      </h3>
     </main>
 
     <footer>
@@ -224,6 +226,7 @@ export default {
     --dark: #111;
     --light: #eee;
     --accent: #f57f17;
+    --accentRgb: 245, 127, 23;
     --secondary: #f9a825;
 
     --border-radius: .25rem;
