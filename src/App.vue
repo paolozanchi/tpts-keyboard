@@ -225,6 +225,8 @@ export default {
     --light: #eee;
     --accent: #f57f17;
     --secondary: #f9a825;
+
+    --border-radius: .25rem;
   }
 
   html {

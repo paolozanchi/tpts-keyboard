@@ -41,7 +41,7 @@ export default {
     font-size: 1em;
     margin: 0.5em;
     padding: 0.75rem 1rem;
-    border-radius: .25em;
+    border-radius: var(--border-radius);
     outline: 0;
     border: 0;
     box-shadow: 0 0 0.5rem rgba(238, 238, 238, 0.3);

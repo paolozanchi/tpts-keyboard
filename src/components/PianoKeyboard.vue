@@ -170,6 +170,7 @@ export default {
     right: 50px;
     display: inline;
     border: 1px solid var(--light);
+    border-radius: var(--border-radius);
     padding: 1rem;
   }
 
