@@ -4,8 +4,8 @@
       v-for="i in octaves"
       :key="i"
       :octave="i + octaveShift"
-      :octaveWidthStyle="octaveWidthStyle"
-      :showHints="showHints"
+      :octave-width-style="octaveWidthStyle"
+      :show-hints="showHints"
       @keyPressed="keyPressed"
     />
   </section>
@@ -20,8 +20,14 @@ export default {
     PianoOctave
   },
   props: {
-    octaves: Number,
-    octaveShift: Number,
+    octaves: {
+      type: Number,
+      default: 5
+    },
+    octaveShift: {
+      type: Number,
+      default: 1
+    },
     showHints: Boolean
   },
   computed: {

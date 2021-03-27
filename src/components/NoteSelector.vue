@@ -6,19 +6,19 @@
       class="noteSelector"
     >
       <input
+        :id="duration.name"
+        v-model="selectedDuration"
         type="radio"
         name="notes"
-        :id="duration.name"
         :value="duration.value"
-        v-model="selectedDuration"
-      />
+      >
       <label :for="duration.name">
         {{ duration.label }}
       </label>
     </div>
 
     <p class="hint">
-      Hint: Use
+      Use
       <kbd>
         <v-icon name="bi-arrow-left-square-fill" /> 
       </kbd> and
@@ -33,8 +33,14 @@
 export default {
   name: 'NoteSelector',
   props: {
-    dataNote: String,
-    hint: String,
+    dataNote: {
+      type: String,
+      required: true
+    },
+    hint: {
+      type: String,
+      required: true
+    },
     sharp: Boolean,
     showHints: Boolean
   },

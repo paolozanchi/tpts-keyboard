@@ -19,8 +19,14 @@
 export default {
   name: 'PianoKey',
   props: {
-    dataNote: String,
-    hint: String,
+    dataNote: {
+      type: String,
+      required: true
+    },
+    hint: {
+      type: String,
+      required: true
+    },
     sharp: Boolean,
     showHints: Boolean
   },

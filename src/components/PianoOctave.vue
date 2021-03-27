@@ -9,11 +9,10 @@
       :data-note="note.name"
       :sharp="note.isSharp"
       :hint="(note.name == 'C') ? note.name + octave : note.name"
-      :showHints="showHints"
+      :show-hints="showHints"
       @keyPressed="keyPressed"
     />
   </section>
-
 </template>
 
 <script>
@@ -26,8 +25,14 @@ export default {
     PianoKey
   },
   props: {
-    octave: Number,
-    octaveWidthStyle: Object,
+    octave: {
+      type: Number,
+      required: true
+    },
+    octaveWidthStyle: {
+      type: Object,
+      required: true
+    },
     showHints: Boolean
   },
   data() {
