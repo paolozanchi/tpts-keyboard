@@ -1,20 +1,33 @@
 <template>
   <section>
     <div
+      v-if="showAlert"
       class="midi-alert"
     >
-      <v-icon 
-        name="bi-music-note-beamed"
-        animation="wrench"
-      />
-      Listening to MIDI device
+      <span
+        v-if="isMIDIavailable"
+      >
+        <v-icon
+          name="bi-music-note-beamed"
+          animation="wrench"
+        />
+        Listening to MIDI device
 
-      <br>
+        <br>
+
+        <span v-if="!firstNotePressed">
+          Play the first note on the screen-keyboard
+        </span>
+      </span>
 
       <span
-        v-if="!firstNotePressed"
+        v-else
       >
-        Play the first note on the screen-keyboard
+        <v-icon
+          name="bi-music-note-beamed"
+          animation="pulse"
+        />
+        MIDI input not available in this browser!
       </span>
     </div>
     
@@ -61,13 +74,16 @@ export default {
       type: Number,
       default: 1
     },
+    showAlert: {
+      type: Boolean,
+      default: true
+    },
     showHints: Boolean
   },
   data() {
     return {
       firstNotePressed: false,
-      isMIDIactive: false,
-      mididebug: null,
+      isMIDIavailable: false,
       notes: [
         { name: 'C' },
         { name: 'C#', isSharp: true },
@@ -102,7 +118,9 @@ export default {
     this.synth = new Tone.Synth().toDestination();
 
     // Check MIDI availability
-    if(navigator.requestMIDIAccess) {
+    this.isMIDIavailable = navigator.requestMIDIAccess;
+    
+    if (this.isMIDIavailable) {
       // Handle the MIDI events
       this.useMIDIdevice();
     }
@@ -128,13 +146,9 @@ export default {
         if (err) {
           alert("Midi could not be enabled.", err);
         } else {
-          page.$emit('MIDIstatusChanged', true);
-          
           // Attach MIDI event listeners to each input
           WebMidi.inputs.forEach(input => {
             input.addListener('noteon', "all", (e) => {
-              page.mididebug = e.note.name + e.note.octave;
-
               // Trigger the press of the key
               page.onKeyPressed(e.note.name, e.note.octave, true)
             });

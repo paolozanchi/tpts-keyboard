@@ -25,7 +25,6 @@
         :octave-shift="octaveShift"
         :show-hints="showHints"
         @keyPressed="onKeyPressed"
-        @MIDIstatusChanged="onMIDIstatusChanged"
       />
 
       <CheckBox
@@ -100,7 +99,6 @@ export default {
   data() {
     return {
       appVersion: version,
-      isMIDIactive: false,
       lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
@@ -134,9 +132,6 @@ export default {
 
         this.sequence.push(difference + "[" + this.selectedDuration + "]");
       }
-    },
-    onMIDIstatusChanged(status) {
-      this.isMIDIactive = status;
     },
     getDistanceFromC4(note, octave) {
       let distance = 0;
