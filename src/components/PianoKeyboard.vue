@@ -43,6 +43,7 @@
         :data-note="note.name"
         :data-octave="octave + octaveShift"
         :sharp="note.isSharp"
+        :key-pressed="keyPressed"
         :hint="(note.name == 'C') ? note.name + (octave + octaveShift) : note.name"
         :show-hints="showHints"
         @keyPressed="onKeyPressed(note.name, octave + octaveShift)"
@@ -84,6 +85,7 @@ export default {
     return {
       firstNotePressed: false,
       isMIDIavailable: false,
+      keyPressed: null,
       notes: [
         { name: 'C' },
         { name: 'C#', isSharp: true },
@@ -133,9 +135,10 @@ export default {
         return;
 
       this.firstNotePressed = true;
+      this.keyPressed = note + octave;
 
       // Play the note for the duration of an 8th note
-      this.synth.triggerAttackRelease(note + octave, "8n", Tone.now());
+      this.synth.triggerAttackRelease(this.keyPressed, "8n", Tone.now());
 
       // Bubble up
       this.$emit('keyPressed', note, octave);

@@ -4,7 +4,7 @@
     :data-note="dataNote"
     :data-octave="dataOctave"
     class="key"
-    :class="{ 'sharp' : sharp }"
+    :class="{ 'sharp' : sharp, 'pressed' : pressed }"
     @click="onKeyPressed"
   >
     <span
@@ -32,8 +32,17 @@ export default {
       type: String,
       required: true
     },
+    keyPressed: {
+      type: String,
+      default: ''
+    },
     sharp: Boolean,
     showHints: Boolean
+  },
+  computed: {
+    pressed() {
+      return this.keyPressed == this.dataNote + this.dataOctave;
+    }
   },
   methods: {
     onKeyPressed() {
@@ -78,7 +87,7 @@ export default {
     color: var(--secondary);
   }
 
-  .key:focus {
+  .key.pressed {
     border: 1px solid var(--accent);
     background: var(--accent);
     color: var(--dark);
@@ -93,7 +102,7 @@ export default {
   }
 
   .key[data-note="F#"]  {
-    left: 51%;
+    left: 52%;
   }
 
   .key[data-note="G#"] {
@@ -101,7 +110,7 @@ export default {
   }
 
   .key[data-note="A#"] {
-    left: 80%;    
+    left: 81%;    
   }
 
   .hint {
