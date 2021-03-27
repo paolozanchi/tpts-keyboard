@@ -2,9 +2,10 @@
   <div
     tabindex="-1"
     :data-note="dataNote"
+    :data-octave="dataOctave"
     class="key"
     :class="{ 'sharp' : sharp }"
-    @click="keyPressed"
+    @click="onKeyPressed"
   >
     <span
       v-if="showHints"
@@ -19,6 +20,10 @@
 export default {
   name: 'PianoKey',
   props: {
+    dataOctave: {
+      type: Number,
+      required: true
+    },
     dataNote: {
       type: String,
       required: true
@@ -31,9 +36,7 @@ export default {
     showHints: Boolean
   },
   methods: {
-    keyPressed(evt) {
-      let element = evt.target;
-      element.focus();
+    onKeyPressed() {
       this.$emit('keyPressed', this.dataNote);
     }
   }

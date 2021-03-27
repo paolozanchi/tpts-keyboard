@@ -12,7 +12,8 @@
     "oh-vue-icons": "^0.3.0",
     "tone": "^14.7.77",
     "vue": "^2.6.12",
-    "vue-gtag": "^1.11.0"
+    "vue-gtag": "^1.11.0",
+    "webmidi": "^2.5.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.12",

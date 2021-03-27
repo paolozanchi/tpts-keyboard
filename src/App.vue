@@ -12,6 +12,16 @@
         >
         keyboard
       </a>
+
+      <div
+        class="midi-alert"
+      >
+        <v-icon 
+          name="bi-music-note-beamed"
+          animation="wrench"
+        />
+        Listening to MIDI device
+      </div>
     </header>
 
     <main>
@@ -24,7 +34,8 @@
         :octaves="octaves"
         :octave-shift="octaveShift"
         :show-hints="showHints"
-        @keyPressed="keyPressed"
+        @keyPressed="onKeyPressed"
+        @MIDIstatusChanged="onMIDIstatusChanged"
       />
 
       <CheckBox
@@ -99,6 +110,7 @@ export default {
   data() {
     return {
       appVersion: version,
+      isMIDIactive: false,
       lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
@@ -116,7 +128,7 @@ export default {
     durationSelected(duration) {
       this.selectedDuration = duration;
     },
-    keyPressed(note, octave) {
+    onKeyPressed(note, octave) {
       // Create the note-duration tuple and push it to the sequence
 
       if(this.sequence.length == 0) {
@@ -132,6 +144,9 @@ export default {
 
         this.sequence.push(difference + "[" + this.selectedDuration + "]");
       }
+    },
+    onMIDIstatusChanged(status) {
+      this.isMIDIactive = status;
     },
     getDistanceFromC4(note, octave) {
       let distance = 0;
@@ -250,6 +265,15 @@ export default {
   .logo {
     width: 100px;
     vertical-align: middle;
+  }
+
+  .midi-alert {
+    position: absolute;
+    top: 25px;
+    right: 50px;
+    display: inline;
+    border: 1px solid var(--light);
+    padding: 1rem;
   }
 
   .buttons {
