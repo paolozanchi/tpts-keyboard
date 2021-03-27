@@ -10,9 +10,9 @@ Vue.use(VueGtag, {
 });
 
 import OhVueIcon from "oh-vue-icons";
-import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill } from "oh-vue-icons/icons";
-OhVueIcon.add([IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill ]);
-Vue.component("v-icon", OhVueIcon);
+import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed } from "oh-vue-icons/icons";
+OhVueIcon.add([IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed ]);
+Vue.component("VIcon", OhVueIcon);
 
 Vue.config.productionTip = false
 
