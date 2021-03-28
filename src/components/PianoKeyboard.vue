@@ -1,20 +1,28 @@
 <template>
-  <section>
+  <section class="keyboard">
     <div
-      v-if="showAlert"
+      v-if="showAlert && !isMobile"
       class="midi-alert"
     >
       <span v-if="isMIDIavailable">
-        <v-icon
-          name="bi-music-note-beamed"
-          animation="wrench"
-        />
-        Listening to MIDI device
+        <span v-if="MIDIdevicesAvailable.length < 1">
+          <v-icon
+            name="bi-music-note-beamed"
+            animation="pulse"
+          />
+          No MIDI device detected!
+        </span>
 
-        <br>
+        <span v-else>
+          <v-icon
+            name="bi-music-note-beamed"
+            animation="wrench"
+          />
+          Listening to MIDI device <strong>{{ MIDIdevicesAvailable.map(x => x.name).join(', ') }}</strong><br>
 
-        <span v-if="!firstNotePressed">
-          Play the first note on the screen-keyboard
+          <span v-if="!firstNotePressed">
+            Play the first note on the screen-keyboard
+          </span>
         </span>
       </span>
 
@@ -52,12 +60,16 @@
 import PianoKey from '@/components/PianoKey.vue'
 import * as Tone from 'tone'
 import WebMidi from 'webmidi'
+import mobileMixin from '@/mixins/mobile.js'
 
 export default {
   name: 'PianoKeyboard',
   components: {
     PianoKey
   },
+  mixins: [
+    mobileMixin
+  ],
   props: {
     height: {
       type: Number,
@@ -82,6 +94,7 @@ export default {
       firstNotePressed: false,
       isMIDIavailable: false,
       keyPressed: null,
+      MIDIdevicesAvailable: 0,
       notes: [
         { name: 'C' },
         { name: 'C#', isSharp: true },
@@ -94,7 +107,7 @@ export default {
         { name: 'G#', isSharp: true },
         { name: 'A' },
         { name: 'A#', isSharp: true },
-        {  name: 'B' }
+        { name: 'B' }
       ],
       synth: null,
     }
@@ -146,6 +159,8 @@ export default {
           alert("Midi could not be enabled.", err);
         } else {
           // Attach MIDI event listeners to each input
+          page.MIDIdevicesAvailable = WebMidi.inputs;
+
           WebMidi.inputs.forEach(input => {
             input.addListener('noteon', "all", (e) => {
               // Trigger the press of the key
@@ -170,8 +185,14 @@ export default {
     padding: 1rem;
   }
 
+  .keyboard {
+    overflow: auto;
+    white-space: nowrap;
+  }
+
   .octave {
     display: inline-block;
     position: relative;
+    min-width: 260px;
   }
 </style>

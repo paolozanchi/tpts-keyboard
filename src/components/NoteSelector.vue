@@ -17,7 +17,11 @@
       </label>
     </div>
 
-    <p class="hint">
+    <p
+      v-if="!isMobile"
+      v-visible="showHint"
+      class="hint"
+    >
       Use
       <kbd>
         <v-icon name="bi-arrow-left-square-fill" /> 
@@ -30,8 +34,19 @@
 </template>
 
 <script>
+import mobileMixin from '@/mixins/mobile.js'
+
 export default {
   name: 'NoteSelector',
+  mixins: [
+    mobileMixin
+  ],
+  props: {
+    showHint: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       durations: [
@@ -143,8 +158,8 @@ export default {
   .noteSelector {
     display: inline-block;
     font-family: 'MusicalNotes', sans-serif;
-    font-size: 3rem;
-    margin: 0 1rem;
+    font-size: 2.5rem;
+    margin: 1.5rem 1rem 0 1rem;
     max-height: 1.5em;
   }
 

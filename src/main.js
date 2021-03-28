@@ -1,20 +1,30 @@
 import Vue from 'vue'
 import App from './App.vue'
-
 import VueMeta from 'vue-meta'
-Vue.use(VueMeta)
+import VueGtag from 'vue-gtag'
+import OhVueIcon from 'oh-vue-icons'
+import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed, PxCopy } from 'oh-vue-icons/icons'
 
-import VueGtag from "vue-gtag";
+Vue.use(VueMeta)
 Vue.use(VueGtag, {
   config: { id: "G-ERYCLRHBD7" }
 });
 
-import OhVueIcon from "oh-vue-icons";
-import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed } from "oh-vue-icons/icons";
-OhVueIcon.add([IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed ]);
+OhVueIcon.add([
+  IoArrowUndoSharp,
+  RiDeleteBin6Line,
+  BiArrowLeftSquareFill,
+  BiArrowRightSquareFill,
+  BiMusicNoteBeamed,
+  PxCopy
+]);
 Vue.component("VIcon", OhVueIcon);
 
 Vue.config.productionTip = false
+
+Vue.directive('visible', function(el, binding) {
+  el.style.visibility = binding.value ? 'visible' : 'hidden';
+});
 
 new Vue({
   render: h => h(App),

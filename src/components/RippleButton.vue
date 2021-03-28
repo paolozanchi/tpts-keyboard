@@ -1,5 +1,9 @@
 <template>
-  <button @click="createRipple">
+  <button
+    :disabled="disabled"
+    :type="type"
+    @click="createRipple"
+  >
     <slot />
   </button>
 </template>
@@ -7,6 +11,13 @@
 <script>
 export default {
   name: 'RippleButton',
+  props: {
+    disabled: Boolean,
+    type: {
+      type: String,
+      default: 'secondary'
+    },
+  },
   methods: {
     createRipple(event) {
       const button = event.currentTarget;
@@ -39,16 +50,24 @@ export default {
     overflow: hidden;
     transition: background 400ms;
     color: var(--dark);
-    background-color:  var(--light);
+    background-color: var(--light);
     margin: 0.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.65rem;
     font-family: 'Metropolis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 1rem;
     outline: 0;
     border: 0;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 0.5rem rgba(238, 238, 238, 0.3);
     cursor: pointer;
+  }
+  
+  button[type="primary"] {
+    background-color: var(--accent);
+  }
+  
+  button:disabled {
+    opacity: .65;
+    cursor: not-allowed;
   }
 </style>
 
