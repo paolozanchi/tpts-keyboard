@@ -1,7 +1,7 @@
 <template>
   <button
     :disabled="disabled"
-    :type="type"
+    :variant="variant"
     @click="createRipple"
   >
     <slot />
@@ -13,9 +13,9 @@ export default {
   name: 'RippleButton',
   props: {
     disabled: Boolean,
-    type: {
+    variant: {
       type: String,
-      default: 'secondary'
+      default: 'light'
     },
   },
   methods: {
@@ -61,8 +61,28 @@ export default {
     cursor: pointer;
   }
   
-  button[type="primary"] {
+  button[variant="primary"] {
     background-color: var(--accent);
+  }
+  
+  button[variant="light"] {
+    background-color: var(--light);
+    color: var(--dark);
+  }
+  
+  button[variant="dark"] {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+  
+  button[variant="success"] {
+    background-color: var(--success);
+    color: var(--light);
+  }
+  
+  button[variant="danger"] {
+    background-color: var(--danger);
+    color: var(--light);
   }
   
   button:disabled {

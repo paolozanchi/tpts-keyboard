@@ -7,7 +7,8 @@ import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRight
 
 Vue.use(VueMeta)
 Vue.use(VueGtag, {
-  config: { id: "G-ERYCLRHBD7" }
+  config: { id: "G-ERYCLRHBD7" },
+  bootstrap: false
 });
 
 OhVueIcon.add([
