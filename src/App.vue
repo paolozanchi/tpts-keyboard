@@ -48,7 +48,7 @@
         <RippleButton
           v-if="isMobile"
           :disabled="sequence.length == 0"
-          type="primary"
+          variant="primary"
           @click="copySequence"
         >
           <v-icon name="px-copy" /> Copy sequence
@@ -90,6 +90,12 @@
         Paolo Zanchi
       </a>
     </footer>
+
+    <GdprConsentModal
+      v-if="GDPRModalVisible"
+      @grant-consent="GDPRconsentGranted"
+      @deny-consent="GDPRconsentDenied"
+    />
   </section>
 </template>
 
@@ -98,8 +104,10 @@ import NoteSelector from '@/components/NoteSelector.vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import RippleButton from '@/components/RippleButton.vue'
 import CheckBox from '@/components/CheckBox.vue'
+import GdprConsentModal from '@/components/GdprConsentModal.vue'
 import mobileMixin from '@/mixins/mobile.js'
 import { version } from '../package.json'
+import { bootstrap } from 'vue-gtag'
 
 export default {
   name: 'TptsKeyboard',
@@ -112,6 +120,7 @@ export default {
     PianoKeyboard,
     RippleButton,
     CheckBox,
+    GdprConsentModal,
   },
   mixins: [
     mobileMixin
@@ -119,6 +128,8 @@ export default {
   data() {
     return {
       appVersion: version,
+      GDPRModalVisible: false,
+      GDPRconsentLocalStorageItem: 'tpts-keyboard-gdpr',
       lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
@@ -131,6 +142,9 @@ export default {
     formattedSequence() {
       return this.sequence.length > 0 ? '!m1 ' + this.sequence.join(' ') : '<empty>';
     }
+  },
+  mounted() {
+    this.checkGDPRconsent();
   },
   methods: {
     durationSelected(duration) {
@@ -232,7 +246,32 @@ export default {
     },
     copySequence() {
       navigator.clipboard.writeText(this.formattedSequence);
-    }
+    },
+    checkGDPRconsent() {
+      const gdprConsent = localStorage.getItem(this.GDPRconsentLocalStorageItem);
+
+      if (gdprConsent === null) {
+        this.GDPRModalVisible = true;
+      } else {
+        this.GDPRModalVisible = false;
+        
+        if (gdprConsent == 'true') {
+          // Activate gtag
+          bootstrap().then(() => {
+            // all done!
+            console.debug("ALL DONE");
+          })
+        }
+      }
+    },
+    GDPRconsentGranted() {
+      localStorage.setItem(this.GDPRconsentLocalStorageItem, true);
+      this.checkGDPRconsent();
+    },
+    GDPRconsentDenied() {
+      localStorage.setItem(this.GDPRconsentLocalStorageItem, false);
+      this.checkGDPRconsent();
+    },
   }
 }
 </script>
@@ -245,10 +284,14 @@ export default {
 
   :root {
     --dark: #121212;
+    --lightenDark: #333;
     --light: #eee;
     --accent: #f57f17;
     --accentRgb: 245, 127, 23;
     --secondary: #ffb04c;
+
+    --success: #218838;
+    --danger: #c82333;
 
     --border-radius: .25rem;
   }
