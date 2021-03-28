@@ -1,6 +1,5 @@
 <template>
-  <div
-    tabindex="-1"
+  <span
     :data-note="dataNote"
     :data-octave="dataOctave"
     class="key"
@@ -13,7 +12,7 @@
     >
       {{ hint }}
     </span>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -58,9 +57,8 @@ export default {
     border: 4px solid black;
     border-radius: .5rem;
     transition: all .07s ease;
-    display: block;
+    display: inline;
     box-sizing: border-box;
-    z-index: 2;
     cursor: pointer;
   }
 
@@ -85,6 +83,10 @@ export default {
   .key:hover {
     border: 1px solid var(--secondary);
     color: var(--secondary);
+  }
+
+  .key:hover > .hint {
+    font-size: 14pt;
   }
 
   .key.pressed {
@@ -119,11 +121,8 @@ export default {
     opacity: 1;
     position: absolute;
     bottom: 7px;
-    font-size: 20px;
+    font-size: 13pt;
 
-    -webkit-user-select: none; /* Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
   }
 </style>

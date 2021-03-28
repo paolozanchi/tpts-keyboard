@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <header>
       <a
         href="#"
@@ -12,28 +12,48 @@
         >
         keyboard
       </a>
+
+      <br>
+      
+      <CheckBox
+        id="hintsToggle"
+        v-model="showHints"
+        label="Show hints"
+      />
     </header>
 
     <main>
       <NoteSelector
         style="margin-bottom: 2rem"
+        :show-hint="showHints"
         @durationSelected="durationSelected"
       />
 
       <PianoKeyboard
         :octaves="octaves"
         :octave-shift="octaveShift"
+        :show-alert="showHints"
         :show-hints="showHints"
         @keyPressed="onKeyPressed"
       />
-
-      <CheckBox
-        id="hintsToggle"
-        v-model="showHints"
-        label="Show note hints"
-      />
+      
+      <h3>
+        Sequence:
+      </h3>
+      <h3 class="result">
+        {{ formattedSequence }}
+      </h3>
 
       <div class="buttons">
+        <RippleButton
+          v-if="isMobile"
+          :disabled="sequence.length == 0"
+          type="primary"
+          @click="copySequence"
+        >
+          <v-icon name="px-copy" /> Copy sequence
+        </RippleButton>
+
         <RippleButton
           @click="undoLastNote"
         >
@@ -46,12 +66,6 @@
           <v-icon name="ri-delete-bin-6-line" /> Clear sequence
         </RippleButton>
       </div>
-
-      <h3>
-        Result:
-        <br><br>
-        <span class="result">{{ formattedSequence }}</span>
-      </h3>
     </main>
 
     <footer>
@@ -84,6 +98,7 @@ import NoteSelector from '@/components/NoteSelector.vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import RippleButton from '@/components/RippleButton.vue'
 import CheckBox from '@/components/CheckBox.vue'
+import mobileMixin from '@/mixins/mobile.js'
 import { version } from '../package.json'
 
 export default {
@@ -98,6 +113,9 @@ export default {
     RippleButton,
     CheckBox,
   },
+  mixins: [
+    mobileMixin
+  ],
   data() {
     return {
       appVersion: version,
@@ -106,12 +124,12 @@ export default {
       octaveShift: 1,
       selectedDuration: '1',
       sequence: [],
-      showHints: true
+      showHints: true,
     }
   },
   computed: {
     formattedSequence() {
-      return this.sequence.length > 0 ? '!m1 ' + this.sequence.join(' ') : ' ';
+      return this.sequence.length > 0 ? '!m1 ' + this.sequence.join(' ') : '<empty>';
     }
   },
   methods: {
@@ -211,6 +229,9 @@ export default {
 
       // Open a new tab
       window.open(url, '_blank').focus();
+    },
+    copySequence() {
+      navigator.clipboard.writeText(this.formattedSequence);
     }
   }
 }
@@ -223,11 +244,11 @@ export default {
   }
 
   :root {
-    --dark: #111;
+    --dark: #121212;
     --light: #eee;
     --accent: #f57f17;
     --accentRgb: 245, 127, 23;
-    --secondary: #f9a825;
+    --secondary: #ffb04c;
 
     --border-radius: .25rem;
   }
@@ -236,20 +257,38 @@ export default {
     background: var(--dark);
     color: var(--light);
     font-family: 'Metropolis', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
     text-align: center;
   }
 
-  h2 {
-    margin-top: 1rem;
-    margin-bottom: .5rem;
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  footer {
+    flex-shrink: 0;
+    padding: .5rem;
   }
 
   .logoContainer {
     color: var(--light);
     font-size: 24pt;
     text-decoration: none;
-    outline: none;
   }
 
   .logo {
@@ -257,27 +296,16 @@ export default {
     vertical-align: middle;
   }
 
-  .buttons {
-    margin-top: 2em;
-  }
-
   .result {
     color: var(--accent);
   }
 
   .link {
-    color: var(--light);
-    outline: none;
+    color: var(--accent);
   }
 
   .heart {
     color: transparent;
     text-shadow: 0 0 0 var(--accent);
-  }
-
-  footer {
-    position: fixed;
-    bottom: 1rem;
-    width: 100%;
   }
 </style>
