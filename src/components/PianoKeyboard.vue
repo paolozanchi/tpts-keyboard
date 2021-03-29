@@ -18,7 +18,11 @@
             name="bi-music-note-beamed"
             animation="wrench"
           />
-          Listening to MIDI device <strong>{{ MIDIdevicesAvailable.map(x => x.name).join(', ') }}</strong><br>
+          Listening to MIDI device 
+          <strong v-if="MIDIdevicesAvailable.length > 0">
+            {{ MIDIdevicesAvailable.map(x => x.name).join(', ') }}
+          </strong>
+          <br>
 
           <span v-if="!firstNotePressed">
             Play the first note on the screen-keyboard
