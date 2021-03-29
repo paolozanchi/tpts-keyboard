@@ -2,7 +2,7 @@
   <section class="container">
     <header>
       <a
-        href="#"
+        href="https://twitch.tv/twitchplaysthesynth"
         class="logoContainer"
         @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
       >
@@ -75,7 +75,7 @@
 
       Made with <span class="heart">❤️</span> by 
       <a 
-        href="#"
+        href="https://github.com/paolozanchi"
         class="link"
         @click.prevent="trackLinkClick('https://github.com/paolozanchi')"
       >
@@ -83,7 +83,7 @@
       </a>
       |
       <a
-        href="#"
+        href="https://linkedin.com/in/paolo-zanchi"
         class="link"
         @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')"
       >
@@ -234,15 +234,17 @@ export default {
       this.lastNoteDistanceFromC4 = null;
     },
     trackLinkClick(url) {
-      // Track link click in the analytics
-      this.$gtag.event('link_click', {
-        event_category: 'link_click',
-        event_label: 'link_click',
-        value: url
-      })
-
-      // Open a new tab
-      window.open(url, '_blank').focus();
+      try {
+        // Track link click in the analytics
+        console.log("this.$gtag", this.$gtag)
+        this.$gtag.event('click', {
+          event_category: 'outbound',
+          event_label: url
+        })
+      } finally {
+        // Open a new tab
+        window.open(url, '_blank').focus();
+      }
     },
     copySequence() {
       navigator.clipboard.writeText(this.formattedSequence);
@@ -259,7 +261,7 @@ export default {
           // Activate gtag
           bootstrap().then(() => {
             // all done!
-            console.debug("ALL DONE");
+            console.debug("vue-gtag enabled!");
           })
         }
       }
