@@ -46,7 +46,6 @@
 
       <div class="buttons">
         <RippleButton
-          v-if="isMobile"
           :disabled="sequence.length == 0"
           variant="primary"
           @click="copySequence"
