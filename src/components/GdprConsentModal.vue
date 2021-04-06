@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-1">
         <span>
-        We use cookies and other tracking technologies to analyze our website traffic and to understand where our visitors are coming from.
+          We use cookies and other tracking technologies to analyze our website traffic and to understand where our visitors are coming from.
         </span>
       </div>
 
