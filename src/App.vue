@@ -110,10 +110,6 @@ import { bootstrap } from 'vue-gtag'
 
 export default {
   name: 'TptsKeyboard',
-  metaInfo: {
-    title: '!tpts keyboard',
-    charset: 'utf-8',
-  },
   components: {
     NoteSelector,
     PianoKeyboard,
