@@ -1,17 +1,18 @@
 <template>
   <section class="container">
     <header>
-      <a
-        href="https://twitch.tv/twitchplaysthesynth"
-        class="logoContainer"
-        @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
-      >
-        <img
-          src="./assets/logo.png"
-          class="logo"
+      <span class="logoContainer">
+        <a
+          href="https://twitch.tv/twitchplaysthesynth"
+          @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
         >
+          <img
+            src="./assets/logo.png"
+            class="logo"
+          >
+        </a>
         keyboard
-      </a>
+      </span>
 
       <br>
       
@@ -29,13 +30,15 @@
         @durationSelected="durationSelected"
       />
 
-      <PianoKeyboard
-        :octaves="octaves"
-        :octave-shift="octaveShift"
-        :show-alert="showHints"
-        :show-hints="showHints"
-        @keyPressed="onKeyPressed"
-      />
+      <transition name="fade">
+        <PianoKeyboard
+          :octaves="octaves"
+          :octave-shift="octaveShift"
+          :show-alert="showHints"
+          :show-hints="showHints"
+          @keyPressed="onKeyPressed"
+        />
+      </transition>
       
       <h3>
         Sequence:
@@ -329,6 +332,7 @@ export default {
     color: var(--light);
     font-size: 24pt;
     text-decoration: none;
+    user-select: none;
   }
 
   .logo {
@@ -347,5 +351,12 @@ export default {
   .heart {
     color: transparent;
     text-shadow: 0 0 0 var(--accent);
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>

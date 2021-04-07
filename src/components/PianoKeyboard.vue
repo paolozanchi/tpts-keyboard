@@ -1,43 +1,45 @@
 <template>
   <section class="keyboard">
-    <div
-      v-if="showAlert && !isMobile"
-      class="midi-alert"
-    >
-      <span v-if="isMIDIavailable">
-        <span v-if="MIDIdevicesAvailable.length < 1">
-          <v-icon
-            name="bi-music-note-beamed"
-            animation="pulse"
-          />
-          No MIDI device detected!
+    <transition name="fade">
+      <div
+        v-if="showAlert && !isMobile"
+        class="midi-alert"
+      >
+        <span v-if="isMIDIavailable">
+          <span v-if="MIDIdevicesAvailable.length < 1">
+            <v-icon
+              name="bi-music-note-beamed"
+              animation="pulse"
+            />
+            No MIDI device detected!
+          </span>
+
+          <span v-else>
+            <v-icon
+              name="bi-music-note-beamed"
+              animation="wrench"
+            />
+            Listening to MIDI device 
+            <strong v-if="MIDIdevicesAvailable.length > 0">
+              {{ MIDIdevicesAvailable.map(x => x.name).join(', ') }}
+            </strong>
+            <br>
+
+            <span v-if="!firstNotePressed">
+              Play the first note on the screen-keyboard
+            </span>
+          </span>
         </span>
 
         <span v-else>
           <v-icon
             name="bi-music-note-beamed"
-            animation="wrench"
+            animation="pulse"
           />
-          Listening to MIDI device 
-          <strong v-if="MIDIdevicesAvailable.length > 0">
-            {{ MIDIdevicesAvailable.map(x => x.name).join(', ') }}
-          </strong>
-          <br>
-
-          <span v-if="!firstNotePressed">
-            Play the first note on the screen-keyboard
-          </span>
+          MIDI input not available in this browser!
         </span>
-      </span>
-
-      <span v-else>
-        <v-icon
-          name="bi-music-note-beamed"
-          animation="pulse"
-        />
-        MIDI input not available in this browser!
-      </span>
-    </div>
+      </div>
+    </transition>
     
     <div
       v-for="octave in octaves"

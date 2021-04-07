@@ -16,20 +16,21 @@
         {{ duration.label }}
       </label>
     </div>
-
-    <p
-      v-if="!isMobile"
-      v-visible="showHint"
-      class="hint"
-    >
-      Use
-      <kbd>
-        <v-icon name="bi-arrow-left-square-fill" /> 
-      </kbd> and
-      <kbd>
-        <v-icon name="bi-arrow-right-square-fill" /> 
-      </kbd> to quickly change the note duration
-    </p>
+    
+    <transition name="fade">
+      <p
+        v-if="!isMobile && showHint"
+        class="hint"
+      >
+        Use
+        <kbd>
+          <v-icon name="bi-arrow-left-square-fill" /> 
+        </kbd> and
+        <kbd>
+          <v-icon name="bi-arrow-right-square-fill" /> 
+        </kbd> to quickly change the note duration
+      </p>
+    </transition>
   </div>
 </template>
 
@@ -161,10 +162,6 @@ export default {
     font-size: 2.5rem;
     margin: 1.5rem 1rem 0 1rem;
     max-height: 1.5em;
-  }
-
-  .hint {
-    opacity: 0.8;
   }
 
   label {

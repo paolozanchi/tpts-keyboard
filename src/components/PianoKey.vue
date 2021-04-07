@@ -6,12 +6,14 @@
     :class="{ 'sharp' : sharp, 'pressed' : pressed }"
     @click="onKeyPressed"
   >
-    <span
-      v-if="showHints"
-      class="hint"
-    >
-      {{ hint }}
-    </span>
+    <transition name="fade">
+      <span
+        v-if="showHints"
+        class="hint"
+      >
+        {{ hint }}
+      </span>
+    </transition>
   </span>
 </template>
 
@@ -118,11 +120,9 @@ export default {
   .hint {
     display: block;
     width: 100%;
-    opacity: 1;
     position: absolute;
     bottom: 7px;
     font-size: 13pt;
-
-    user-select: none; /* Standard */
+    user-select: none;
   }
 </style>
