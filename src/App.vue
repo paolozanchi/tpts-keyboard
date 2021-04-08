@@ -9,6 +9,9 @@
           <img
             src="./assets/logo.png"
             class="logo"
+            width="100"
+            height="100"
+            alt="Twitch plays the synth logo"
           >
         </a>
         keyboard
