@@ -1,6 +1,6 @@
 {
   "name": "tpts-keyboard",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -12,7 +12,6 @@
     "oh-vue-icons": "^0.3.0",
     "tone": "^14.7.77",
     "vue": "^2.6.12",
-    "vue-gtag": "^1.11.0",
     "webmidi": "^2.5.2"
   },
   "devDependencies": {

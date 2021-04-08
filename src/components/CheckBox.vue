@@ -11,7 +11,6 @@
 
     <label
       :for="id"
-      class="label"
     >
       {{ label }}
     </label>
@@ -92,11 +91,12 @@ export default {
     appearance: none;
   }
 
-  .label {
+  label {
     cursor: pointer;
+    user-select: none;
   }
 
-  .label::before {
+  label::before {
     position: relative;
     content: '';
     width: 14px;
@@ -108,7 +108,7 @@ export default {
     border-radius: 2px;
   }
 
-  .checkbox:checked ~ .label::after {
+  .checkbox:checked ~ label::after {
     content: '';
     display: block;
     position: absolute;

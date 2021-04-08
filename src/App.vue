@@ -1,17 +1,18 @@
 <template>
   <section class="container">
     <header>
-      <a
-        href="https://twitch.tv/twitchplaysthesynth"
-        class="logoContainer"
-        @click.prevent="trackLinkClick('https://twitch.tv/twitchplaysthesynth')"
-      >
-        <img
-          src="./assets/logo.png"
-          class="logo"
+      <span class="logoContainer">
+        <a
+          href="https://twitch.tv/twitchplaysthesynth"
+          target="_twitch"
         >
+          <img
+            src="./assets/logo.png"
+            class="logo"
+          >
+        </a>
         keyboard
-      </a>
+      </span>
 
       <br>
       
@@ -29,13 +30,15 @@
         @durationSelected="durationSelected"
       />
 
-      <PianoKeyboard
-        :octaves="octaves"
-        :octave-shift="octaveShift"
-        :show-alert="showHints"
-        :show-hints="showHints"
-        @keyPressed="onKeyPressed"
-      />
+      <transition name="fade">
+        <PianoKeyboard
+          :octaves="octaves"
+          :octave-shift="octaveShift"
+          :show-alert="showHints"
+          :show-hints="showHints"
+          @keyPressed="onKeyPressed"
+        />
+      </transition>
       
       <h3>
         Sequence:
@@ -76,7 +79,7 @@
       <a 
         href="https://github.com/paolozanchi"
         class="link"
-        @click.prevent="trackLinkClick('https://github.com/paolozanchi')"
+        target="_github"
       >
         mmmmmeh1
       </a>
@@ -84,17 +87,11 @@
       <a
         href="https://linkedin.com/in/paolo-zanchi"
         class="link"
-        @click.prevent="trackLinkClick('https://linkedin.com/in/paolo-zanchi')"
+        target="_linkedin"
       >
         Paolo Zanchi
       </a>
     </footer>
-
-    <GdprConsentModal
-      v-if="GDPRModalVisible"
-      @grant-consent="GDPRconsentGranted"
-      @deny-consent="GDPRconsentDenied"
-    />
   </section>
 </template>
 
@@ -103,10 +100,8 @@ import NoteSelector from '@/components/NoteSelector.vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import RippleButton from '@/components/RippleButton.vue'
 import CheckBox from '@/components/CheckBox.vue'
-import GdprConsentModal from '@/components/GdprConsentModal.vue'
 import mobileMixin from '@/mixins/mobile.js'
 import { version } from '../package.json'
-import { bootstrap } from 'vue-gtag'
 
 export default {
   name: 'TptsKeyboard',
@@ -115,7 +110,6 @@ export default {
     PianoKeyboard,
     RippleButton,
     CheckBox,
-    GdprConsentModal,
   },
   mixins: [
     mobileMixin
@@ -123,8 +117,6 @@ export default {
   data() {
     return {
       appVersion: version,
-      GDPRModalVisible: false,
-      GDPRconsentLocalStorageItem: 'tpts-keyboard-gdpr',
       lastNoteDistanceFromC4: null,
       octaves: 5,
       octaveShift: 1,
@@ -137,9 +129,6 @@ export default {
     formattedSequence() {
       return this.sequence.length > 0 ? '!m1 ' + this.sequence.join(' ') : '<empty>';
     }
-  },
-  mounted() {
-    this.checkGDPRconsent();
   },
   methods: {
     durationSelected(duration) {
@@ -228,46 +217,8 @@ export default {
       this.sequence = [];
       this.lastNoteDistanceFromC4 = null;
     },
-    trackLinkClick(url) {
-      try {
-        // Track link click in the analytics
-        console.log("this.$gtag", this.$gtag)
-        this.$gtag.event('click', {
-          event_category: 'outbound',
-          event_label: url
-        })
-      } finally {
-        // Open a new tab
-        window.open(url, '_blank').focus();
-      }
-    },
     copySequence() {
       navigator.clipboard.writeText(this.formattedSequence);
-    },
-    checkGDPRconsent() {
-      const gdprConsent = localStorage.getItem(this.GDPRconsentLocalStorageItem);
-
-      if (gdprConsent === null) {
-        this.GDPRModalVisible = true;
-      } else {
-        this.GDPRModalVisible = false;
-        
-        if (gdprConsent == 'true') {
-          // Activate gtag
-          bootstrap().then(() => {
-            // all done!
-            console.debug("vue-gtag enabled!");
-          })
-        }
-      }
-    },
-    GDPRconsentGranted() {
-      localStorage.setItem(this.GDPRconsentLocalStorageItem, true);
-      this.checkGDPRconsent();
-    },
-    GDPRconsentDenied() {
-      localStorage.setItem(this.GDPRconsentLocalStorageItem, false);
-      this.checkGDPRconsent();
     },
   }
 }
@@ -329,6 +280,7 @@ export default {
     color: var(--light);
     font-size: 24pt;
     text-decoration: none;
+    user-select: none;
   }
 
   .logo {
@@ -347,5 +299,13 @@ export default {
   .heart {
     color: transparent;
     text-shadow: 0 0 0 var(--accent);
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+  }
+  
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>
