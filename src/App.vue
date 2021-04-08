@@ -107,6 +107,7 @@ import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import RippleButton from '@/components/RippleButton.vue'
 import CheckBox from '@/components/CheckBox.vue'
 import GdprConsentModal from '@/components/GdprConsentModal.vue'
+import compressorMixin from '@/mixins/compressor.js'
 import mobileMixin from '@/mixins/mobile.js'
 import { version } from '../package.json'
 import { bootstrap } from 'vue-gtag'
@@ -121,6 +122,7 @@ export default {
     GdprConsentModal,
   },
   mixins: [
+    compressorMixin,
     mobileMixin
   ],
   data() {
@@ -245,6 +247,8 @@ export default {
       }
     },
     copySequence() {
+      // TODO: if formatted sequence > 500 char then compress
+      const compressedSequence = this.compressSequence('1 ' + this.sequence.join(' '));
       navigator.clipboard.writeText(this.formattedSequence);
     },
     checkGDPRconsent() {
