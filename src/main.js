@@ -1,13 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueGtag from 'vue-gtag'
 import OhVueIcon from 'oh-vue-icons'
 import { IoArrowUndoSharp, RiDeleteBin6Line, BiArrowLeftSquareFill, BiArrowRightSquareFill, BiMusicNoteBeamed, PxCopy } from 'oh-vue-icons/icons'
-
-Vue.use(VueGtag, {
-  config: { id: "G-ERYCLRHBD7" },
-  bootstrap: false
-});
 
 OhVueIcon.add([
   IoArrowUndoSharp,
